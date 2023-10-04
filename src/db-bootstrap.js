@@ -8,9 +8,13 @@ const { association } = require("../models/Association");
 console.log(process.env.DATABASE_URL);
 // Initialize Sequelize with your database connection details
 // Initialize Sequelize with your database connection details
-const sequelize = new Sequelize(process.env.DATABASE_URL,
+const sequelize = new Sequelize(
   {
-
+  database:process.env.DB_DATABASE || 'health_check',
+  username:process.env.DB_USER || 'postgres',
+  password:process.env.DB_PASSWORD || 'munnipammi',
+  host: process.env.DB_HOST || 'localhost',
+   
   
   dialect: 'postgres',
   logging: false,
