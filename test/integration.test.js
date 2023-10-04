@@ -8,7 +8,7 @@ const router = require('../src/healthapi');
 
 const app = express();
 
-app.use('/', router);
+app.use('/healthz', router);
 
  
 
