@@ -4,7 +4,7 @@
   "description": "Health Check Assignment",
   "main": "index.js",
   "scripts": {
-    "test": "cd src && jest"
+    "test": "cd src && jest --forceExit"
   },
   "author": "Shreya Baliga",
   "license": "ISC",
