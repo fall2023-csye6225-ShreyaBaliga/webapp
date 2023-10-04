@@ -5,10 +5,14 @@ require('dotenv').config({ path: envFilePath });
 const { Sequelize } = require('sequelize');
 const { association } = require("../models/Association");
 
-
+console.log(process.env.DATABASE_URL);
 // Initialize Sequelize with your database connection details
-const sequelize = new Sequelize(process.env.DATABASE_URL,
-  {
+const sequelize = new Sequelize({
+  database:process.env.DB_DATABASE,
+  username:process.env.DB_USER,
+  password:process.env.DB_PASSWORD,
+  host:process.env.DB_HOST,
+  port:process.env.DB_PORT,
 
   
   dialect: 'postgres',
