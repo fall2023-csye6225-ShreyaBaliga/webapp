@@ -1,49 +1,34 @@
-require('dotenv').config();
+// app.js
+
 const express = require('express');
-const bodyParser = require('body-parser');
-const pool = require('./src/database'); // Import the database pool
-const { checkDatabaseConnection } = require('./src/database'); // check db connection function
-const { handleInvalidURLs, handleUnsupportedMethods } = require('./middleware'); // Import middleware functions
-const config = require('./src/config'); // Import the database configuration
-const request = require('supertest');
 const app = express();
-const port = 3000;
+const PORT = process.env.PORT || 3000;
+const bodyParser = require('body-parser');
+//const models = require('./models');
+// const sequelize = require('./db-bootstrap');
 const router = express.Router()
+
+// Import routes, authentication middleware, and other necessary modules
+
+// Bootstrapping the database
+require('./src/db-bootstrap');
+
+// Load users from CSV
+require('./src/load-users.js');
+
+// Middleware for JSON parsing and authentication
 app.use(bodyParser.json());
 
+// API routes
+app.use('/v1', require('./src/api'));
+
+app.use('/',require('./src/healthapi'));
 
 
 
+  // Start your server or perform other actions
+ const server = app.listen(3000, () => {
+    console.log('Server is running on port 3000');
+  });
 
-router.get('/healthz', async (req, res) => {
- 
-  if (Object.keys(req.query).length > 0) {
-    res.status(400).send();
-    return;
-  }
-  const isDatabaseConnected = await checkDatabaseConnection();
-
-  if (isDatabaseConnected) {
-    res.setHeader('Cache-Control', 'no-cache');
-    res.status(200).send();
-  } else {
-    console.error('Service Unavailable');
-    res.setHeader('Cache-Control', 'no-cache');
-    res.status(503).send();
-  }
-}
-
-);
-
-// app.use('/healthz', router);
-
-  
-
-
-// Start the server
-const server = app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
-
-
-module.exports = router;
+  module.exports = server;
