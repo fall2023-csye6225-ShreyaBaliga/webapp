@@ -19,10 +19,12 @@ require('./src/load-users.js');
 // Middleware for JSON parsing and authentication
 app.use(bodyParser.json());
 
+app.use('/healthz',require('./src/healthapi'));
+
 // API routes
 app.use('/v1', require('./src/api'));
 
-app.use('/',require('./src/healthapi'));
+
 
 
 
