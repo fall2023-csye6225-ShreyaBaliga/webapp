@@ -13,18 +13,20 @@ const sequelize = require('./db-bootstrap');
 
 router.use(express.json());
 router.use( async (req, res, next) => {
+  console.log("api");
   const authHeader = req.headers.authorization;
   const credentials = authHeader.split(' ')[1];
   const decodedCredentials = Buffer.from(credentials, 'base64').toString('utf-8');
   const [email, password] = decodedCredentials.split(':');
 
   try {
+    console.log("inside try");
       const isAuthenticated = await auth.authenticateUser(email, password);
+      console.log(isAuthenticated);
       if(isAuthenticated != null) {
         const account = await dbAccount(sequelize).findOne({ where: { email : email } });
         req.body.user_id = account.id;
-         
-          console.log(req.body.user_id);
+        console.log(account);
           next();
          
       }
@@ -65,9 +67,11 @@ router.get( "/assignments/:id", async ( req, res, next ) => {
 
 
 router.post("/assignments", async ( req, res, next ) => {
+  console.log("post");
   const assignmentObj = req.body;
   try {
           const assignment = await apiService.createAssignment(assignmentObj);
+          console.log(assignment);
           res.status(201);
           res.json(assignment);
       } catch (error) {

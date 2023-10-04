@@ -3,14 +3,19 @@ const express = require('express');
 const sequelize = require('./db-bootstrap');
 const router = express.Router();
 
+router.use((req,res,next) => {
+  console.log(req.baseUrl);
+  if (req.baseUrl != '/healthz') {
+    res.status().send();
+  }
+  next();
+})
 
 
-router.get('/healthz', async (req, res) => {
+router.get('/', async (req, res) => {
     
       
-  if (!req.url.startsWith('/healthz')) {
-    res.status(400).send();
-  }
+ 
     if (Object.keys(req.query).length > 0) {
       res.status(400).send();
       return;
@@ -40,22 +45,22 @@ router.get('/healthz', async (req, res) => {
 }
   
   );
-router.put("/healthz", async ( req, res, next ) => {
+router.put("/", async ( req, res, next ) => {
     
     res.status(405).send();
 });
 
-router.post("/healthz", async ( req, res, next ) => {
+router.post("/", async ( req, res, next ) => {
     
     res.status(405).send();
 });
 
-router.patch("/healthz", async ( req, res, next ) => {
-   
+router.patch("/", async ( req, res, next ) => {
+   console.log("patch");
     res.status(405).send();
 });
 
-router.delete("/healthz", async ( req, res, next ) => {
+router.delete("/", async ( req, res, next ) => {
    
     res.status(405).send();
 });

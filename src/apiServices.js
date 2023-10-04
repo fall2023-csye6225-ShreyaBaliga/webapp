@@ -19,8 +19,6 @@ apiService.getAllAssignments = async () => {
 apiService.getAssignment = async (id, user_id) => {
     try {
         const assignment = await dbAssignment(sequelize).findOne({ where: { id: id } });
-        console.log(!(assignment.user_id === user_id));
-        console.log(assignment.user_id + " " + user_id);
         if (!(assignment.user_id === user_id)) {
             const err = new Error("Forbidden");
             err.status = 403;
@@ -40,7 +38,6 @@ apiService.getAssignment = async (id, user_id) => {
 
 apiService.createAssignment = async (assignmentObj) => {
     try {
-        console.log(assignmentObj);
         const assignment = await dbAssignment(sequelize).create({
             name: assignmentObj.name,
             points: assignmentObj.points,
@@ -80,9 +77,7 @@ apiService.updateAssignment = async (id, assignmentObj) => {
 
 apiService.deleteAssignment = async (id, user_id) => {
     try {
-        console.log("model delete");
         const isExists = await apiService.getAssignment(id, user_id);
-        console.log(isExists);
         const deletedRows = await dbAssignment(sequelize).destroy({
             where: {
                 id: id,
