@@ -8,13 +8,14 @@ const config = require('./src/config'); // Import the database configuration
 const request = require('supertest');
 const app = express();
 const port = 3000;
+const router = express.Router()
 app.use(bodyParser.json());
 
 
 
 
 
-app.get('/healthz', async (req, res) => {
+router.get('/healthz', async (req, res) => {
  
   if (Object.keys(req.query).length > 0) {
     res.status(400).send();
@@ -34,8 +35,7 @@ app.get('/healthz', async (req, res) => {
 
 );
 
-app.use(handleInvalidURLs);
-app.use(handleUnsupportedMethods);
+// app.use('/healthz', router);
 
   
 
@@ -46,5 +46,4 @@ const server = app.listen(port, () => {
 });
 
 
-
-module.exports = app;
+module.exports = router;
