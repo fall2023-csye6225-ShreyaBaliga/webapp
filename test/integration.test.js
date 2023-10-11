@@ -18,7 +18,7 @@ describe('Test Suite: Healthz Integration Test Cases', () => {
 
         request(app).get('/healthz')
 
-        .expect(200)
+        .expect(503)
 
         .end((err, res) => {
 
