@@ -13,7 +13,7 @@ variable "aws_region" {
 }
 
 variable "webapp" {
-  type = string
+  type    = string
   default = ""
 }
 
