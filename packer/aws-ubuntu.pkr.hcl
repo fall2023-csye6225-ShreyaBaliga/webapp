@@ -39,7 +39,7 @@ variable "subnet_id" {
 
 variable "ami_users" {
   type    = list(string)
-  default = ["887717972277","065889916706"]
+  default = ["887717972277", "065889916706"]
 }
 
 source "amazon-ebs" "app-ami" {
