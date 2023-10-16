@@ -25,16 +25,20 @@ apiService.getAssignment = async (id, user_id) => {
             throw err;
           
         }
+       
         if (assignment != null) {
             return assignment;
         } else {
             const err = new Error("Not found");
+            err.status = 404;
             throw err;
         }
     } catch (error) {
         throw error;
     }
 };
+
+
 
 apiService.createAssignment = async (assignmentObj) => {
     try {
@@ -87,11 +91,13 @@ apiService.deleteAssignment = async (id, user_id) => {
             return true;
         } else {
             const err = new Error("Assignment not found");
+            err.status = 404
             throw err;
         }
     } catch (error) {
         throw error;
     }
+
 };
 
 module.exports = apiService;
