@@ -1,0 +1,36 @@
+name: Packer fmt check and validate
+
+on:
+    pull_request:
+        branches:
+         - main
+
+jobs:
+    packer:
+        runs-on: ubuntu-latest
+        name: Run Packer
+
+        steps:
+        - name: Checkout
+          uses: actions/checkout@v3
+
+        - name: Setup Packer
+          uses: hashicorp/setup-packer@main
+          id: setup
+          with:
+            version: "latest"
+
+        - name: Run Packer init
+          id: init
+          run: |
+            packer init packer/aws-ubuntu.pkr.hcl
+
+        - name: Run Packer fmt
+          run: |
+            set -e
+            packer fmt -check packer/aws-ubuntu.pkr.hcl
+
+        - name: Run Packer validate
+          run: |
+            set -e
+            packer validate packer/aws-ubuntu.pkr.hcl
