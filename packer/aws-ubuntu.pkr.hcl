@@ -12,6 +12,11 @@ variable "aws_region" {
   default = "us-east-1"
 }
 
+variable "webapp" {
+  type = string
+  default = ""
+}
+
 variable "source_ami" {
   type    = string
   default = "ami-06db4d78cb1d3bbf9"
@@ -71,12 +76,12 @@ build {
   sources = ["source.amazon-ebs.app-ami"]
 
   provisioner "file" {
-    source      = "./webapp.zip"
+    source      = "${var.webapp}"
     destination = "/home/admin/webapp.zip"
   }
 
   provisioner "shell" {
-    script = "./webapp.sh"
+    script = "packer/webapp.sh"
   }
 
   // post-processor "manifest" {
