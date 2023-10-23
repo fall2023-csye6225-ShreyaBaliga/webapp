@@ -5,7 +5,7 @@ packer {
       version = "~> 1"
     }
   }
-}
+
 
 variable "aws_region" {
   type    = string
