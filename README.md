@@ -4,6 +4,8 @@ All API request/response payloads should be in JSON format.
 No user interface (UI) should be implemented for the application.
 Ensure proper HTTP status codes for API calls.
 Maintain high code quality using unit and/or integration tests.
+
+jdgu
 # Bootstrapping Database
 The application should automatically bootstrap the database at startup.
 Bootstrapping involves creating the schema, tables, indexes, sequences, etc., or updating them if their definition has changed.

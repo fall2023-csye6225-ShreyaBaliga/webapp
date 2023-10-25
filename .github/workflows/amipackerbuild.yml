@@ -82,3 +82,4 @@ jobs:
     - name: AMI_PACKER BUILD
       run: |
         packer build --var-file=packer/variables.pkvars.hcl "webapp=webapp/webapp.zip" packer/aws-ubuntu.pkr.hcl
+
