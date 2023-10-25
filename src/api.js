@@ -13,12 +13,6 @@ const sequelize = require('./db-bootstrap');
 
 router.use(express.json());
 router.use( async (req, res, next) => {
-  console.log("api");
-  const authHeader = req.headers.authorization;
-  const credentials = authHeader.split(' ')[1];
-  const decodedCredentials = Buffer.from(credentials, 'base64').toString('utf-8');
-  const [email, password] = decodedCredentials.split(':');
-
   try {
     const authHeader = req.headers.authorization;
     const credentials = authHeader.split(' ')[1];
@@ -118,7 +112,7 @@ router.patch("/assignments/:id", async ( req, res, next ) => {
 });
 
 router.delete("/assignments/:id", async ( req, res, next ) => {
-  if(req.body && Object.keys(req.body).length>0)
+  if(req.body && Object.keys(req.body).length>1)
   {
     res.status(400).send();
     return;
