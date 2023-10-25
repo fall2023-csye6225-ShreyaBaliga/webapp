@@ -77,10 +77,10 @@ jobs:
     - name: Packer Initialization
       id: init
       run: |
-        packer init packer/aws-ubuntu.pkr.hcl
+        packer init aws-ubuntu.pkr.hcl
 
     - name: AMI_PACKER BUILD
       run: |
-        packer build -var "webapp=webapp/webapp.zip" packer/aws-ubuntu.pkr.hcl 
+        packer build aws-ubuntu.pkr.hcl 
 
   
