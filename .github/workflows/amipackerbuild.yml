@@ -57,9 +57,8 @@ jobs:
 
     - name: Build Artifacts
       run: |
-        zip -r webapp.zip .
-        mkdir -p webapp
-        mv webapp.zip webapp/
+        cd ../ && zip -r webapp.zip webapp
+        cd - && cp ../webapp.zip .
 
     - name: Setup Packer
       uses: hashicorp/setup-packer@main
