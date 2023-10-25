@@ -80,6 +80,6 @@ jobs:
 
     - name: AMI_PACKER BUILD
       run: |
-        packer build aws-ubuntu.pkr.hcl 
+        packer build --var-file=variables.pkrvars.hcl aws-ubuntu.pkr.hcl 
 
   
