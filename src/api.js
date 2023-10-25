@@ -45,10 +45,10 @@ router.use( async (req, res, next) => {
 
 
 router.get( "/assignments", async ( req, res, next ) => {
-  if(Object.keys(req.query).length>0 || (req.body && Object.keys(length)>1))
+  if(req.body && Object.keys(req.body).length>1)
   {
     res.status(400).send();
-
+    return;
   }
   try {
     
