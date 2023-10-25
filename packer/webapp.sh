@@ -24,9 +24,11 @@
 
     cd /home/admin/webapp/webapp
 
+
     npm install
 
     echo "Server setup completed!!"
+
 
     sudo sh -c "echo '[Unit]
     Description= My NPM Service
@@ -46,4 +48,3 @@
     sudo systemctl enable webapp
     sudo systemctl start webapp
     sudo systemctl status webapp 
-
