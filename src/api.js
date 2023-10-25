@@ -45,6 +45,11 @@ router.use( async (req, res, next) => {
 
 
 router.get( "/assignments", async ( req, res, next ) => {
+  if(req.body && Object.keys(req.body).length>0)
+  {
+    res.status(400).send();
+    return;
+  }
   try {
     
       const assignments = await apiService.getAllAssignments();
@@ -58,6 +63,11 @@ router.get( "/assignments", async ( req, res, next ) => {
 });
 
 router.get( "/assignments/:id", async ( req, res, next ) => {
+  if(req.body && Object.keys(req.body).length>0)
+  {
+    res.status(400).send();
+    return;
+  }
   try {
     
       const id = req.params.id;
