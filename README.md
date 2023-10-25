@@ -35,7 +35,7 @@ Build the application artifact (war, jar, zip, etc.). This artifact should be bu
 Build the AMI with application dependencies and set up the application by copying the application artifacts and the configuration files.
 The AMI built must be shared with the DEMO account.
 No AMI should be built if the any of the jobs or steps in the workflow fail.
-# Implement integration tests for the /healtz endpoint.
+# Implement integration tests for the /healthz endpoint.
 Tests should verify success criteria.
 GitHub Actions should set up  PostgreSQL instance and provide configuration to the application to connect to it.
 
