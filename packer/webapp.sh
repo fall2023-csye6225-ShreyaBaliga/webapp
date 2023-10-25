@@ -14,13 +14,15 @@
     sudo apt-get install nodejs -y
 
     sudo apt-get install unzip -y
+    
+    sudo groupadd csye6225
+    sudo useradd -s /bin/false -g csye6225 -d /opt/csye6225 -m csye6225
+    sudo chown -R csye6225:csye6225 /home/admin/webapp/webapp
+    sudp chmod -R 755 /home/admin/webapp/webapp
 
     unzip /home/admin/webapp.zip -d /home/admin/webapp
 
     cd /home/admin/webapp/webapp
-
-    sudo groupadd csye6225
-    sudo useradd -s /bin/false -g csye6225 -d /opt/csye6225 -m csye6225
 
     npm install
 
@@ -39,7 +41,6 @@
 
     [Install]
     WantedBy=cloud-init.target' | sudo tee /etc/systemd/system/webapp.service"
-    
     
     sudo systemctl daemon-reload
     sudo systemctl enable webapp
