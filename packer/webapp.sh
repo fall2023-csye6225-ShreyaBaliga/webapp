@@ -15,10 +15,6 @@
 
     sudo apt-get install unzip -y
     
-    sudo groupadd csye6225
-    sudo useradd -s /bin/false -g csye6225 -d /opt/csye6225 -m csye6225
-    sudo chown -R csye6225:csye6225 /home/admin/webapp/webapp
-    sudo chmod -R 755 /home/admin/webapp/webapp
 
     unzip /home/admin/webapp.zip -d /home/admin/webapp
 
