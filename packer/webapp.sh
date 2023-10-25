@@ -42,7 +42,6 @@
     [Install]
     WantedBy=cloud-init.target' | sudo tee /etc/systemd/system/webapp.service"
     
-    
     sudo systemctl daemon-reload
     sudo systemctl enable webapp
     sudo systemctl start webapp
