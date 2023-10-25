@@ -29,12 +29,12 @@ Requires=cloud-init.target
 
 [Service]
 User=csye6225
-Type=simple
 EnvironmentFile=/etc/environment
 WorkingDirectory=/home/admin/webapp
 ExecStart=/usr/bin/node /home/admin/webapp/index.js
+Type=simple
 Restart=always
-RestartSec=10
+
 
 [Install]
 WantedBy=cloud-init.target' | sudo tee /etc/systemd/system/webapp.service"
