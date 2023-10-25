@@ -24,8 +24,8 @@ echo "Server setup completed!!"
 
 sudo sh -c "echo '[Unit]
 Description= My NPM Service
-After=cloud-init.target
-Requires=cloud-init.target
+After=cloud-final.target
+
 
 [Service]
 User=csye6225
