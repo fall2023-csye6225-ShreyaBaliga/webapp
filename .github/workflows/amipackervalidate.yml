@@ -14,6 +14,13 @@ jobs:
         - name: Checkout
           uses: actions/checkout@v3
 
+        - name: Zip the project and copy to repo
+          run: |
+                cd ../
+                zip -r webapp.zip webapp
+                cd -
+                cp ../webapp.zip .
+          
         - name: Setup Packer
           uses: hashicorp/setup-packer@main
           id: setup
