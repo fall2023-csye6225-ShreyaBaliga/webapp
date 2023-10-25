@@ -45,10 +45,10 @@ router.use( async (req, res, next) => {
 
 
 router.get( "/assignments", async ( req, res, next ) => {
-  if(req.body && Object.keys(req.body).length>0)
+  if(Object.keys(req.query).length>0 || (req.body && Object.keys(length)>1))
   {
     res.status(400).send();
-    return;
+
   }
   try {
     
@@ -63,11 +63,12 @@ router.get( "/assignments", async ( req, res, next ) => {
 });
 
 router.get( "/assignments/:id", async ( req, res, next ) => {
-  if(req.body && Object.keys(req.body).length>0)
+  if(req.body && Object.keys(req.body).length>1)
   {
     res.status(400).send();
     return;
   }
+ 
   try {
     
       const id = req.params.id;
