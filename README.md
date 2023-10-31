@@ -1,5 +1,6 @@
 # WEB APPLICATION
 # RESTful API Requirements
+demo
 All API request/response payloads should be in JSON format.
 No user interface (UI) should be implemented for the application.
 Ensure proper HTTP status codes for API calls.
