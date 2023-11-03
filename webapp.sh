@@ -48,4 +48,4 @@ sudo systemctl start webapp.service
 # sudo systemctl start webapp
 # sudo systemctl status webapp
 
-sudo yum install amazon-cloudwatch-agent -y
+#sudo yum install amazon-cloudwatch-agent -y
