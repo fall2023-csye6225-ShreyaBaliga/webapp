@@ -1,6 +1,7 @@
 [Unit]
 Description=My NPM Service
-After=cloud-final.target
+Requires=cloud-init.target
+After=cloud-final.service
 
 [Service]
 User=csye6225
