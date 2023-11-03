@@ -1,4 +1,5 @@
 # WEB APPLICATION
+
 # RESTful API Requirements
 demo
 All API request/response payloads should be in JSON format.
