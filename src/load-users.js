@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 const sequelize = require('./db-bootstrap');
 const dbAccount = require('../models/Accounts.js');
 const csvPath = './opt/users.csv';
+const logger = require('./logger');
 
  
 // Regular expression for validating email format
@@ -14,6 +15,7 @@ const emailRegex = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
   .authenticate()
   .then(async () => {
     console.log('Database connection has been established successfully.');
+    logger.info("Successfully connected to the database");
    
      //sequelize.sync()
     // Continue with processing CSV file after successful connection
@@ -21,6 +23,7 @@ const emailRegex = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
   })
   .catch((err) => {
     console.error('Unable to connect to the database:', err);
+    logger.error("Unable to connect to the database");
   });
 
 // Function to process the CSV file
@@ -63,16 +66,20 @@ function processCsvFile() {
                 fields: ['first_name', 'last_name', 'email', 'password'], // Define the fields to be inserted
               });
               console.log('User inserted successfully:', row.email);
+              logger.info("Successfully inserted the user details");
             }
           } catch (error) {
             console.error('Error loading user:', error);
+            logger.error("Error loading the user details");
           }
         })
         .on('end', () => {
           console.log('User loading completed.');
+          logger.info("User loading completed");
         });
     } catch (error) {
       console.error('Error:', error);
+      logger.error("Error");
     }
   })();
 }

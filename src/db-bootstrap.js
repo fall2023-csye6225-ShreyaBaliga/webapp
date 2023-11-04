@@ -34,9 +34,11 @@ association(sequelize);
 // Run migrations only once during the application startup
 async function initializeDatabase() {
   try {
+    logger.info("Database Synchronized Successfully");
     // await sequelize.sync();
     console.log('Database synchronized successfully.');
   } catch (error) {
+    logger.error("Database Synchronization Error");
     console.error('Database synchronization error:', error);
   }
 }
