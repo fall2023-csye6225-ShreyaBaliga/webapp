@@ -22,32 +22,24 @@ sudo npm install
 echo "Server setup completed!!"
 
 
-# sudo sh -c "echo '[Unit]
-# Description= My NPM Service
-# After=cloud-final.target
+sudo sh -c "echo '[Unit]
+Description= My NPM Service
+After=cloud-final.target
 
 
-# [Service]
-# User=csye6225
-# EnvironmentFile=/etc/environment
-# WorkingDirectory=/home/admin/webapp
-# ExecStart=/usr/bin/node /home/admin/webapp/index.js
-# Type=simple
-# Restart=always
+[Service]
+User=csye6225
+EnvironmentFile=/etc/environment
+WorkingDirectory=/home/admin/webapp
+ExecStart=/usr/bin/node /home/admin/webapp/index.js
+Type=simple
+Restart=always
 
 
-# [Install]
-# WantedBy=cloud-init.target' | sudo tee /etc/systemd/system/webapp.service"
-sudo mv /tmp/webapp.service /etc/systemd/system/webapp.service
+[Install]
+WantedBy=cloud-init.target' | sudo tee /etc/systemd/system/webapp.service"
+
 sudo systemctl daemon-reload
-sudo systemctl enable webapp.service
-sudo systemctl start webapp.service
-
-
-
-# sudo systemctl daemon-reload
-# sudo systemctl enable webapp
-# sudo systemctl start webapp
-# sudo systemctl status webapp
-
-#sudo yum install amazon-cloudwatch-agent -y
+sudo systemctl enable webapp
+sudo systemctl start webapp
+sudo systemctl status webapp
