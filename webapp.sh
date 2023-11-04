@@ -6,6 +6,15 @@ sudo apt update
 sudo apt upgrade -y
 sudo apt install -y nodejs npm unzip
 
+# Download and install the Unified CloudWatch Agent
+wget https://s3.amazonaws.com/amazoncloudwatch-agent/debian/amd64/latest/amazon-cloudwatch-agent.deb
+dpkg -i -E ./amazon-cloudwatch-agent.deb
+
+# Remove the CloudWatch Agent package (deb file) after installation
+rm -f amazon-cloudwatch-agent.deb
+
+sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -c file:cloudwatch-config.json -s
+
 
 sudo unzip /home/admin/webapp.zip -d /home/admin/
 sudo rm -f /home/admin/webapp.zip
@@ -43,3 +52,5 @@ sudo systemctl daemon-reload
 sudo systemctl enable webapp
 sudo systemctl start webapp
 sudo systemctl status webapp
+sudo systemctl enable amazon-cloudwatch-agent
+sudo systemctl start amazon-cloudwatch-agent
