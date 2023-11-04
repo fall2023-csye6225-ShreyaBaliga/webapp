@@ -1,6 +1,7 @@
 const bcrypt = require ('bcrypt');
 const dbAccount = require('../models/Accounts');
 const sequelize = require('./db-bootstrap');
+const logger = require('./logger');
 
 async function authenticateUser(email, password) {
   const user = await dbAccount(sequelize).findOne({ where: { email } });
