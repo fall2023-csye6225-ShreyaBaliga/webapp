@@ -9,6 +9,7 @@ const dbAccount = require('../models/Accounts');
 const dbAssignment = require('../models/Assignments')
 const apiService = require ('./apiServices');
 const sequelize = require('./db-bootstrap');
+const logger = require('./logger');
 //const  models  = require('./models');
 
 router.use(express.json());

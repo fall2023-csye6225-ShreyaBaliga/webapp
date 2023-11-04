@@ -2,6 +2,7 @@ const sequelize = require('./db-bootstrap');
 //const  models  = require('./models');
 const dbAccount = require('../models/Accounts');
 const dbAssignment = require('../models/Assignments')
+const logger = require('./logger');
 
 const apiService = {};
 
