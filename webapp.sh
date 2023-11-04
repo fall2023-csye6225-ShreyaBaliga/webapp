@@ -13,9 +13,6 @@ sudo dpkg -i -E ./amazon-cloudwatch-agent.deb
 # Remove the CloudWatch Agent package (deb file) after installation
 sudo rm -f amazon-cloudwatch-agent.deb
 
-sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -c file:cloudwatch-config.json -s
-
-
 sudo unzip /home/admin/webapp.zip -d /home/admin/
 sudo rm -f /home/admin/webapp.zip
     

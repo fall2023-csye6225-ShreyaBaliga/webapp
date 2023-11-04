@@ -9,12 +9,14 @@ async function authenticateUser(email, password) {
   const hashedPassword = await bcrypt.hash(password, 10);
   const passwordMatch = await bcrypt.compare(password, user.dataValues.password);
   if (!passwordMatch) {
+    logger.error("Password Doesnt Match- Unauthorized");
      const err = new Error("Bad Request");
      err.status = 401;
      throw err;
   }
   else
   {
+    logger.info("Authorized");
     return passwordMatch;
 
   }
@@ -22,7 +24,7 @@ async function authenticateUser(email, password) {
 }
 else
 {
-   
+   logger.error("User Not present- Unauthorized");
   const err = new Error("Bad Request");
   throw err;
    
