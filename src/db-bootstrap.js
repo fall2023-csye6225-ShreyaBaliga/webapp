@@ -4,6 +4,7 @@ const envFilePath = path.resolve(__dirname, './.env');
 require('dotenv').config({ path: envFilePath });
 const { Sequelize } = require('sequelize');
 const { association } = require("../models/Association");
+const logger = require('./logger');
 
 
 // Initialize Sequelize with your database connection details
