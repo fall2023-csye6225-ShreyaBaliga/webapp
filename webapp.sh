@@ -8,10 +8,10 @@ sudo apt install -y nodejs npm unzip
 
 # Download and install the Unified CloudWatch Agent
 wget https://s3.amazonaws.com/amazoncloudwatch-agent/debian/amd64/latest/amazon-cloudwatch-agent.deb
-dpkg -i -E ./amazon-cloudwatch-agent.deb
+sudo dpkg -i -E ./amazon-cloudwatch-agent.deb
 
 # Remove the CloudWatch Agent package (deb file) after installation
-rm -f amazon-cloudwatch-agent.deb
+sudo rm -f amazon-cloudwatch-agent.deb
 
 sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -c file:cloudwatch-config.json -s
 
