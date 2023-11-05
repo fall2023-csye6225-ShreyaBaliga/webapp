@@ -7,7 +7,7 @@ sudo apt upgrade -y
 sudo apt install -y nodejs npm unzip
 
 # Download and install the Unified CloudWatch Agent
-wget https://s3.amazonaws.com/amazoncloudwatch-agent/debian/amd64/latest/amazon-cloudwatch-agent.deb
+sudo wget https://s3.amazonaws.com/amazoncloudwatch-agent/debian/amd64/latest/amazon-cloudwatch-agent.deb
 sudo dpkg -i -E ./amazon-cloudwatch-agent.deb
 
 # Remove the CloudWatch Agent package (deb file) after installation
@@ -27,6 +27,8 @@ cd /home/admin/webapp
 sudo npm install
 echo "Server setup completed!!"
 
+sudo systemctl enable amazon-cloudwatch-agent
+sudo systemctl start amazon-cloudwatch-agent
 
 sudo sh -c "echo '[Unit]
 Description= My NPM Service
@@ -46,23 +48,21 @@ Restart=always
 WantedBy=cloud-init.target' | sudo tee /etc/systemd/system/webapp.service"
 
 
-sudo sh -c "echo '[Unit]
-Description= My Cloudwatch agent service
-After=cloud-final.target
+# sudo sh -c "echo '[Unit]
+# Description= My Cloudwatch agent service
+# After=cloud-final.target
 
 
-[Service]
-User=csye6225
-ExecStart=/opt/aws/amazon-cloudwatch-agent/bin/start-amazon-cloudwatch-agent -a fetch-config -m onPremise -c /home/admin/webapp/cloudwatch-config.json -s
-Restart=always
+# [Service]
+# User=csye6225
+# ExecStart=/opt/aws/amazon-cloudwatch-agent/bin/start-amazon-cloudwatch-agent -a fetch-config -m onPremise -c /home/admin/webapp/cloudwatch-config.json -s
+# Restart=always
 
 
-[Install]
-WantedBy=cloud-init.target' | sudo tee /etc/systemd/system/amazon-cloudwatch-agent.service"
+# [Install]
+# WantedBy=cloud-init.target' | sudo tee /etc/systemd/system/amazon-cloudwatch-agent.service"
 
 sudo systemctl daemon-reload
 sudo systemctl enable webapp
 sudo systemctl start webapp
 sudo systemctl status webapp
-sudo systemctl enable amazon-cloudwatch-agent
-sudo systemctl start amazon-cloudwatch-agent
