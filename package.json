@@ -20,6 +20,7 @@
     "express": "^4.18.2",
     "express-session": "^1.17.3",
     "fs": "^0.0.1-security",
+    "node-statsd": "^0.1.1",
     "nodemon": "^3.0.1",
     "pg": "^8.11.3",
     "sequelize": "^6.33.0",

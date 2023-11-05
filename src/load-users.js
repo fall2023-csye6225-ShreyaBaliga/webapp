@@ -6,7 +6,9 @@ const sequelize = require('./db-bootstrap');
 const dbAccount = require('../models/Accounts.js');
 const csvPath = './opt/users.csv';
 const logger = require('./logger');
+const StatsD = require('node-statsd');
 
+const stats = new StatsD();
  
 // Regular expression for validating email format
 const emailRegex = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
@@ -17,6 +19,7 @@ const emailRegex = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
     console.log('Database connection has been established successfully.');
     logger.info("Successfully connected to the database");
    
+   
      //sequelize.sync()
     // Continue with processing CSV file after successful connection
     processCsvFile();
@@ -24,6 +27,7 @@ const emailRegex = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
   .catch((err) => {
     console.error('Unable to connect to the database:', err);
     logger.error("Unable to connect to the database");
+    
   });
 
 // Function to process the CSV file
