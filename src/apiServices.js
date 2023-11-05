@@ -3,7 +3,9 @@ const sequelize = require('./db-bootstrap');
 const dbAccount = require('../models/Accounts');
 const dbAssignment = require('../models/Assignments')
 const logger = require('./logger');
+const StatsD = require('node-statsd');
 
+const stats = new StatsD();
 const apiService = {};
 
 apiService.getAllAssignments = async () => {

@@ -5,7 +5,9 @@ require('dotenv').config({ path: envFilePath });
 const { Sequelize } = require('sequelize');
 const { association } = require("../models/Association");
 const logger = require('./logger');
+const StatsD = require('node-statsd');
 
+const stats = new StatsD();
 
 // Initialize Sequelize with your database connection details
 // Initialize Sequelize with your database connection details
