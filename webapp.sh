@@ -52,6 +52,7 @@ After=cloud-final.target
 
 
 [Service]
+User=csye6225
 ExecStart=/opt/aws/amazon-cloudwatch-agent/bin/start-amazon-cloudwatch-agent -a fetch-config -m onPremise -c /home/admin/webapp/cloudwatch-config.json -s
 Restart=always
 
