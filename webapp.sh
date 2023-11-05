@@ -45,6 +45,20 @@ Restart=always
 [Install]
 WantedBy=cloud-init.target' | sudo tee /etc/systemd/system/webapp.service"
 
+
+sudo sh -c "echo '[Unit]
+Description= My Cloudwatch agent service
+After=cloud-final.target
+
+
+[Service]
+ExecStart=/opt/aws/amazon-cloudwatch-agent/bin/start-amazon-cloudwatch-agent -a fetch-config -m onPremise -c /home/admin/webapp/cloudwatch-config.json -s
+Restart=always
+
+
+[Install]
+WantedBy=cloud-init.target' | sudo tee /etc/systemd/system/amazon-cloudwatch-agent.service"
+
 sudo systemctl daemon-reload
 sudo systemctl enable webapp
 sudo systemctl start webapp
