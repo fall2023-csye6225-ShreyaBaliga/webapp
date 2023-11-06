@@ -40,4 +40,7 @@ No AMI should be built if the any of the jobs or steps in the workflow fail.
 # Implement integration tests for the /healthz endpoint.
 Tests should verify success criteria.
 GitHub Actions should set up  PostgreSQL instance and provide configuration to the application to connect to it.
+# Implemented RDS
+# Implemented Cloudwatch
+# Setup MailGun
 
