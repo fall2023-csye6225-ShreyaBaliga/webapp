@@ -19,8 +19,8 @@ sudo cp /tmp/webapp.zip /opt/webapp.zip
 sudo groupadd csye6225
 sudo useradd -s /bin/false -g csye6225 -d /opt/csye6225 -m csye6225
 sudo unzip /opt/webapp.zip -d /opt/csye6225/
-sudo chown -R csye6225:csye6225 /opt/csye6225/webapp
-sudo chmod -R 770 /opt/csye6225/webapp
+# sudo chown -R csye6225:csye6225 /opt/csye6225/webapp
+# sudo chmod -R 770 /opt/csye6225/webapp
 
 # sudo unzip /home/admin/webapp.zip -d /home/admin/
 # sudo rm -f /home/admin/webapp.zip
