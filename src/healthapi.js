@@ -17,7 +17,7 @@ router.use((req,res,next) => {
 
 router.get('/', async (req, res) => {
     
-      
+  stats.increment('GET_REQUEST_API_HIT_FOR_HEALTHZ');
  
     if (Object.keys(req.query).length > 0) {
       res.status(400).send();
@@ -57,6 +57,7 @@ router.get('/', async (req, res) => {
   
   );
 router.put("/", async ( req, res, next ) => {
+  stats.increment('PUT_REQUEST_API_HIT_FOR_HEALTHZ');
   logger.info("METHOD NOT ALLOWED");
   stats.increment('method_not_allowed');
     res.status(405).send();
@@ -64,12 +65,14 @@ router.put("/", async ( req, res, next ) => {
 });
 
 router.post("/", async ( req, res, next ) => {
+  stats.increment('POST_REQUEST_API_HIT_FOR_HEALTHZ');
   logger.info("METHOD NOT ALLOWED");
   stats.increment('method_not_allowed');
     res.status(405).send();
 });
 
 router.patch("/", async ( req, res, next ) => {
+  stats.increment('PATCH_REQUEST_API_HIT_FOR_HEALTHZ');
   logger.info("METHOD NOT ALLOWED");
   stats.increment('method_not_allowed');
    console.log("patch");
@@ -77,6 +80,7 @@ router.patch("/", async ( req, res, next ) => {
 });
 
 router.delete("/", async ( req, res, next ) => {
+  stats.increment('DELETE_REQUEST_API_HIT_FOR_HEALTHZ');
   logger.info("METHOD NOT ALLOWED");
   stats.increment('method_not_allowed');
    

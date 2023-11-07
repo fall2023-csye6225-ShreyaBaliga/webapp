@@ -52,6 +52,7 @@ router.use( async (req, res, next) => {
 
 
 router.get( "/assignments", async ( req, res, next ) => {
+  stats.increment('GET_REQUEST_API_HIT_FOR_ASSIGNMENT');
   if(req.body && Object.keys(req.body).length>1)
   {
     logger.error("BAD REQUEST");
@@ -76,6 +77,7 @@ router.get( "/assignments", async ( req, res, next ) => {
 });
 
 router.get( "/assignments/:id", async ( req, res, next ) => {
+  stats.increment('GET_REQUEST_API_HIT_FOR_ASSIGNMENT_WITH_ID');
   if(req.body && Object.keys(req.body).length>1)
   {
     logger.error("GET ASSIGNMENTS WITH ID - BAD REQUEST");
@@ -104,6 +106,7 @@ router.get( "/assignments/:id", async ( req, res, next ) => {
 
 
 router.post("/assignments", async ( req, res, next ) => {
+  stats.increment('POST_REQUEST_API_HIT_FOR_ASSIGNMENT');
   console.log("post");
   const assignmentObj = req.body;
   try {
@@ -123,6 +126,7 @@ router.post("/assignments", async ( req, res, next ) => {
 });
 
 router.put("/assignments/:id", async ( req, res, next ) => {
+  stats.increment('PUT_REQUEST_API_HIT_FOR_ASSIGNMENT');
   const id = req.params.id;
   const assignmentObj = req.body;
       try {
@@ -147,12 +151,14 @@ router.put("/assignments/:id", async ( req, res, next ) => {
 });
 
 router.patch("/assignments/:id", async ( req, res, next ) => {
+  stats.increment('PATCH_REQUEST_API_HIT_FOR_ASSIGNMENT');
    logger.error(" METHOD NOT ALLOWED");
    stats.increment('method_not_allowed');
   res.status(405).send();
 });
 
 router.delete("/assignments/:id", async ( req, res, next ) => {
+  stats.increment('DELETE_REQUEST_API_HIT_FOR_ASSIGNMENT');
   if(req.body && Object.keys(req.body).length>1)
   {
     logger.error("DELETE REQUEST HAS A BAD SYNTAX")
