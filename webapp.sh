@@ -13,11 +13,12 @@ sudo dpkg -i -E ./amazon-cloudwatch-agent.deb
 # Remove the CloudWatch Agent package (deb file) after installation
 sudo rm -f amazon-cloudwatch-agent.deb
 
+
+
 sudo cp /tmp/webapp.zip /opt/webapp.zip
 sudo groupadd csye6225
 sudo useradd -s /bin/false -g csye6225 -d /opt/csye6225 -m csye6225
 sudo unzip /opt/webapp.zip -d /opt/csye6225/
-sudo rm -f /opt/webapp.zip
 sudo chown -R csye6225:csye6225 /opt/csye6225/webapp
 sudo chmod -R 770 /opt/csye6225/webapp
 
