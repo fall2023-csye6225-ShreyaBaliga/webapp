@@ -1,0 +1,16 @@
+[Unit]
+Description= My NPM Service
+After=cloud-final.target
+
+
+[Service]
+User=csye6225
+EnvironmentFile=/etc/environment
+WorkingDirectory=/opt/csye6225/webapp
+ExecStart=/usr/bin/node /opt/csye6225/webapp/index.js
+Type=simple
+Restart=always
+
+
+[Install]
+WantedBy=cloud-init.target
