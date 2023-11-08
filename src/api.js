@@ -53,7 +53,7 @@ router.use( async (req, res, next) => {
 
 router.get( "/assignments", async ( req, res, next ) => {
   stats.increment('GET_REQUEST_API_HIT_FOR_ASSIGNMENT');
-  if(req.body && Object.keys(req.body).length>1)
+  if(req.body && Object.keys(req.body).length>1 || Object.keys(req.query).length > 0)
   {
     logger.error("BAD REQUEST");
     stats.increment('bad_request');
@@ -78,7 +78,7 @@ router.get( "/assignments", async ( req, res, next ) => {
 
 router.get( "/assignments/:id", async ( req, res, next ) => {
   stats.increment('GET_REQUEST_API_HIT_FOR_ASSIGNMENT_WITH_ID');
-  if(req.body && Object.keys(req.body).length>1)
+  if(req.body && Object.keys(req.body).length>1 || Object.keys(req.query).length > 0)
   {
     logger.error("GET ASSIGNMENTS WITH ID - BAD REQUEST");
     stats.increment('bad_request');
