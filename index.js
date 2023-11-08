@@ -22,8 +22,28 @@ app.use(bodyParser.json());
 app.use('/healthz',require('./src/healthapi'));
 
 // API routes
-app.use('/v1', require('./src/api'));
 
+// app.get('/',(req,res)=>{
+//   res.redirect(302,'/v1/assignments');
+// })
+// app.get('/:id',(req,res)=>{
+//   res.redirect(302,`/v1/assignments/${req.params.id}`);
+// })
+// app.post('/',(req,res)=>{
+//   res.redirect(307,'/v1/assignments');
+// })
+// app.patch('/:id',(req,res)=>{
+//   res.redirect(307,`/v1/assignments/${req.params.id}`);
+// })
+// app.put('/:id',(req,res)=>{
+//   res.redirect(307,`/v1/assignments/${req.params.id}`);
+// })
+// app.delete('/:id',(req,res)=>{
+//   res.redirect(307,`/v1/assignments/${req.params.id}`);
+    
+// })
+
+app.use('/v1', require('./src/api'));
 
 
 
