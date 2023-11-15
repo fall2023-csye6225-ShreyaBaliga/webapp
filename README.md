@@ -43,4 +43,5 @@ GitHub Actions should set up  PostgreSQL instance and provide configuration to t
 # Implemented RDS
 # Implemented Cloudwatch
 # Setup MailGun
+# Implemented Alarms
 
