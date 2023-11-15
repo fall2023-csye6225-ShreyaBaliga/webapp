@@ -55,7 +55,7 @@ router.get('/', async (req, res) => {
             
 }
   
-  );
+);
 router.put("/", async ( req, res, next ) => {
   stats.increment('PUT_REQUEST_API_HIT_FOR_HEALTHZ');
   logger.info("METHOD NOT ALLOWED");
