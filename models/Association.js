@@ -2,7 +2,7 @@ const { Sequelize } = require('sequelize');
 
 
 const association = (sequelize) => {
-    const { Accounts, Assignments } = sequelize.models;
+    const { Accounts, Assignments,Submission } = sequelize.models;
 
     Accounts.hasMany(Assignments, {
         foreignKey: "user_id",
@@ -12,6 +12,14 @@ const association = (sequelize) => {
     Assignments.belongsTo(Accounts, {
         foreignKey: "user_id"
     }) 
+   
+    Accounts.hasMany(Submission, { foreignKey: 'user_id' });
+    Assignments.hasMany(Submission, { foreignKey: 'assignment_id' });
+    Submission.belongsTo(Accounts, { foreignKey: 'user_id' });
+    Submission.belongsTo(Assignments, { foreignKey: 'assignment_id' });
+
+
+
 }
 
 module.exports = { association };

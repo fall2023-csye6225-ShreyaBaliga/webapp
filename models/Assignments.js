@@ -43,7 +43,11 @@ module.exports = (sequelize) => {
     },
     deadline: {
       type: DataTypes.DATE,
+
       allowNull: false,
+  
+      
+      
     },
     assignment_created: {
       type: DataTypes.STRING,

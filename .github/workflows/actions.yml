@@ -19,6 +19,7 @@ jobs:
             POSTGRES_PASSWORD: ${{ secrets.DB_PASSWORD }}
             POSTGRES_PORT: ${{ secrets.DB_PORT }}
             POSTGRES_HOST: ${{ secrets.DB_HOST }}
+            SNS_TOPIC: $${{secrets.SNS_TOPIC}}
 
         ports:
           - 5432:5432
@@ -37,6 +38,7 @@ jobs:
         echo DB_PASSWORD=${{ secrets.DB_PASSWORD }} >> .env
         echo DB_PORT=${{ secrets.DB_PORT }} >> .env
         echo DB_HOST=${{ secrets.DB_HOST }} >> .env
+        echo SNS_TOPIC=$${{secrets.SNS_TOPIC}} >> .env
         echo "cat .env"
         cat .env
         echo "ls -a ."

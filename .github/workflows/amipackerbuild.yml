@@ -23,6 +23,7 @@ jobs:
             POSTGRES_PASSWORD: ${{ secrets.DB_PASSWORD }}
             POSTGRES_PORT: ${{ secrets.DB_PORT }}
             POSTGRES_HOST: ${{ secrets.DB_HOST }}
+            SNS_TOPIC: $${{ secrets.SNS_TOPIC }}
           ports:
             - 5432:5432
           options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
@@ -51,6 +52,7 @@ jobs:
         echo DB_PASSWORD=${{ secrets.DB_PASSWORD }} >> .env
         echo DB_PORT=${{ secrets.DB_PORT }} >> .env
         echo DB_HOST=${{ secrets.DB_HOST }} >> .env
+        echo SNS_TOPIC=$${{ secrets.SNS_TOPIC }} >> .env
 
     - name: Run Integration tests
       run: npm run test
