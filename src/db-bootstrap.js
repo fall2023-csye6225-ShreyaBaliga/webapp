@@ -25,7 +25,8 @@ const sequelize = new Sequelize(
 
 const modelDefiners = [
   require("../models/Accounts"),
-  require("../models/Assignments")
+  require("../models/Assignments"),
+  require("../models/Submission")
 ];
 
 for(const modelDefiner of modelDefiners) {
