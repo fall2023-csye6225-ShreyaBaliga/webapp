@@ -255,8 +255,10 @@ sns.publish({
 }, (err, data) => {
   if (err) {
       console.error("Error publishing message to SNS:", err);
+      logger.error("Error publishing message to SNS:", err );
   } else {
       console.log("Message published to SNS:", data.MessageId);
+      logger.info("Message published to SNS:", data.MessageId);
   }
 });
 
