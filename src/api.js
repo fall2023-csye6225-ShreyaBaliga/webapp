@@ -18,8 +18,8 @@ const stats = new StatsD();
 
 // Configure AWS SDK with your credentials and region
 AWS.config.update({
-  // accessKeyId: "AKIA45MA5JE2YU2O3RUN",
-  // secretAccessKey: "qE3jNi3x3z7N1SFXqJmo/C9w26QRQcELemi40ARW",
+  accessKeyId: process.env.accessKeyId,
+  secretAccessKey: process.env.secretAccessKey,
   region: "us-east-1",
 });
 
