@@ -159,13 +159,13 @@ router.post("/assignments/:id/submission",async(req,res,next)=>{
     const assignment_id=req.params.id;
     console.log(assignment_id);
     const user_id=req.body.user_id;
-    const assignmentCheck =  await dbAssignment(sequelize).findOne({ where: { id: assignment_id } });
-    console.log(assignmentCheck);
-    if(!(assignmentCheck))
-    {
-      res.status(404).send();
-      return;
-    }
+    // const assignmentCheck =  await dbAssignment(sequelize).findOne({ where: { id: assignment_id } });
+    // console.log(assignmentCheck);
+    // if(!(assignmentCheck))
+    // {
+    //   res.status(404).send();
+    //   return;
+    // }
     console.log("Inside try check");
     if(!(submission_url))
     {
