@@ -27,7 +27,7 @@ AWS.config.update({
 const sns = new AWS.SNS();
 
 // The ARN of the SNS topic you created with Pulumi
-const snsTopicArn = process.env.SNS_TOPIC || "arn:aws:sns:us-east-1:887717972277:mySNSTopic-552fea4";
+const snsTopicArn = process.env.SNS_TOPIC || "arn:aws:sns:us-east-1:065889916706:mySNSTopic-198c747";
 
 router.use(express.json());
 router.use( async (req, res, next) => {
@@ -220,37 +220,34 @@ const userInfo = {
   name: "Shreya Baliga",
   submission_url: submission_url
 };
-
+console.log(userInfo.submission_url);
 // Create a message payload
 const message = {
   default: JSON.stringify(userInfo),
+  
 };
-
+console.log(message);
 // Publish the message to the SNS topic
 sns.publish({
   Message: "PUBLISHING THE MESSAGE TO THE TOPICS AND THE RELEASE DOWNLOAD IS SUCCESSFUL"+ JSON.stringify(message),
   MessageAttributes: {
     'domainName': {
-      DataType:'String',
+      DataType: 'String',
       StringValue: userInfo.domainName
     },
-    'email':
-    {
-      DataType:'String',
+    'email': {
+      DataType: 'String',
       StringValue: userInfo.email
     },
-    'name':
-    {
-      DataType:'String',
-      StringValue:userInfo.name
-
+    'name': {
+      DataType: 'String',
+      StringValue: userInfo.name
     },
-    'submission_url':
-    {
-      DataType:'String',
-      StringValue:userInfo.submission_url
+    'submission_url': {
+      DataType: 'String',
+      StringValue: userInfo.submission_url
     }
-},
+  },
   TopicArn: snsTopicArn,
 }, (err, data) => {
   if (err) {
@@ -328,4 +325,3 @@ router.delete("/assignments/:id", async ( req, res, next ) => {
 
 
 module.exports = router;
-
