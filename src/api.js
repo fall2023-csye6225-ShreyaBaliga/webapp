@@ -18,8 +18,8 @@ const stats = new StatsD();
 
 // Configure AWS SDK with your credentials and region
 AWS.config.update({
-  accessKeyId: process.env.accessKeyId,
-  secretAccessKey: process.env.secretAccessKey,
+  // accessKeyId: process.env.accessKeyId,
+  // secretAccessKey: process.env.secretAccessKey,
   region: "us-east-1",
 });
 
@@ -27,7 +27,7 @@ AWS.config.update({
 const sns = new AWS.SNS();
 
 // The ARN of the SNS topic you created with Pulumi
-const snsTopicArn = process.env.SNS_TOPIC || "arn:aws:sns:us-east-1:065889916706:mySNSTopic-198c747";
+const snsTopicArn = process.env.SNS_TOPIC || "arn:aws:sns:us-east-1:065889916706:mySNSTopic-fa429b1";
 
 router.use(express.json());
 router.use( async (req, res, next) => {
@@ -143,6 +143,9 @@ router.post("/assignments/:id/submission",async(req,res,next)=>{
  
   
   const submission_url = req.body.submission_url;
+  const assignment_id=req.params.id;
+  console.log(assignment_id);
+  const user_id=req.body.user_id;
   console.log(submission_url);
   const submissionObj=req.body;
   console.log(submissionObj);
@@ -218,7 +221,9 @@ const userInfo = {
   domainName: "demo.shreyabaliga.me",
   email: "baligashreyacc@gmail.com",
   name: "Shreya Baliga",
-  submission_url: submission_url
+  submission_url: submission_url,
+  user_id:user_id,
+  assignment_id:assignment_id
 };
 console.log(userInfo.submission_url);
 // Create a message payload
@@ -246,6 +251,16 @@ sns.publish({
     'submission_url': {
       DataType: 'String',
       StringValue: userInfo.submission_url
+    },
+    'user_id':
+    {
+      DataType: 'String',
+      StringValue:userInfo.user_id
+    },
+    'assignment_id':
+    {
+      DataType: 'String',
+      StringValue:userInfo.assignment_id
     }
   },
   TopicArn: snsTopicArn,
