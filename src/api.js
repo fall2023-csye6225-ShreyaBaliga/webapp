@@ -177,7 +177,9 @@ router.post("/assignments/:id/submission",async(req,res,next)=>{
     }
    
     // Check if the assignment exists
-    const assignment = await apiService.getAssignment(assignment_id,user_id);
+    // const assignment = await apiService.getAssignment(assignment_id,user_id);
+    const assignment = await dbAssignment(sequelize).findOne({ where: { id: assignment_id } });
+    console.log(assignment);
     // if (!assignment) {
     //   return res.status(404).send();
        
@@ -210,13 +212,7 @@ router.post("/assignments/:id/submission",async(req,res,next)=>{
     res.status(201);
     res.json(assignmentSubmission);
     console.log(assignmentSubmission);
-  }
- 
-  catch(error)
-  {
-      res.status(400).send();
-  }
-  // User info to be posted to the SNS topic
+      // User info to be posted to the SNS topic
 const userInfo = {
   domainName: "demo.shreyabaliga.me",
   email: "baligashreyacc@gmail.com",
@@ -273,6 +269,69 @@ sns.publish({
       logger.info("Message published to SNS:", data.MessageId);
   }
 });
+}
+ 
+  catch(error)
+  {
+      res.status(400).send();
+  }
+//   // User info to be posted to the SNS topic
+// const userInfo = {
+//   domainName: "demo.shreyabaliga.me",
+//   email: "baligashreyacc@gmail.com",
+//   name: "Shreya Baliga",
+//   submission_url: submission_url,
+//   user_id:user_id,
+//   assignment_id:assignment_id
+// };
+// console.log(userInfo.submission_url);
+// // Create a message payload
+// const message = {
+//   default: JSON.stringify(userInfo),
+  
+// };
+// console.log(message);
+// // Publish the message to the SNS topic
+// sns.publish({
+//   Message: "PUBLISHING THE MESSAGE TO THE TOPICS AND THE RELEASE DOWNLOAD IS SUCCESSFUL"+ JSON.stringify(message),
+//   MessageAttributes: {
+//     'domainName': {
+//       DataType: 'String',
+//       StringValue: userInfo.domainName
+//     },
+//     'email': {
+//       DataType: 'String',
+//       StringValue: userInfo.email
+//     },
+//     'name': {
+//       DataType: 'String',
+//       StringValue: userInfo.name
+//     },
+//     'submission_url': {
+//       DataType: 'String',
+//       StringValue: userInfo.submission_url
+//     },
+//     'user_id':
+//     {
+//       DataType: 'String',
+//       StringValue:userInfo.user_id
+//     },
+//     'assignment_id':
+//     {
+//       DataType: 'String',
+//       StringValue:userInfo.assignment_id
+//     }
+//   },
+//   TopicArn: snsTopicArn,
+// }, (err, data) => {
+//   if (err) {
+//       console.error("Error publishing message to SNS:", err);
+//       logger.error("Error publishing message to SNS:", err );
+//   } else {
+//       console.log("Message published to SNS:", data.MessageId);
+//       logger.info("Message published to SNS:", data.MessageId);
+//   }
+// });
 
 })
 
