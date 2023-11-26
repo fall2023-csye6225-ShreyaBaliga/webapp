@@ -170,11 +170,11 @@ router.post("/assignments/:id/submission",async(req,res,next)=>{
     //   return;
     // }
     console.log("Inside try check");
-    if(!(submission_url))
-    {
-       res.status(400).send();
-       return;
-    }
+    // if(!(submission_url))
+    // {
+    //    res.status(400).send();
+    //    return;
+    // }
    
     // Check if the assignment exists
     // const assignment = await apiService.getAssignment(assignment_id,user_id);
