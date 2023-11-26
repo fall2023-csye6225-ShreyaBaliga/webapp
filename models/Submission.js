@@ -33,9 +33,6 @@ module.exports = (sequelize) => {
   },
   submission_url: {
     type: DataTypes.STRING,
-    validate: {
-      isUrl: true,
-    },
     allowNull: false,
   },
   submission_date: {
