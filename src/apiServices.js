@@ -85,7 +85,7 @@ console.log("submission_date value:", currentDate);
             assignment_id:assignment_id,
             submission_url:submissionObj.submission_url,
             submission_date: currentDate.toISOString(),
-            // assignment_updated:assignment_updated,
+            // submission_updated:currentDate.toISOString(),
             user_id:submissionObj.user_id
         });
         console.log(submission);

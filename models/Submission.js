@@ -33,6 +33,9 @@ module.exports = (sequelize) => {
   },
   submission_url: {
     type: DataTypes.STRING,
+    validate: {
+      isUrl: true,
+    },
     allowNull: false,
   },
   submission_date: {
@@ -45,15 +48,15 @@ module.exports = (sequelize) => {
       
     // },
   },
-  assignment_updated: {
+  submission_updated: {
     type: DataTypes.STRING,
 
     allowNull: false,
 
     defaultValue: new Date().toISOString(),
-    set() {
+    // set() {
       
-    },
+    // },
    }
   }
   
