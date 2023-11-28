@@ -140,7 +140,7 @@ router.post("/assignments", async ( req, res, next ) => {
 });
 
 router.post("/assignments/:id/submission",async(req,res,next)=>{
- 
+  stats.increment('POST_REQUEST_API_HIT_FOR_ASSIGNMENT_SUBMISSION');
   
   const submission_url = req.body.submission_url;
   const assignment_id=req.params.id;
@@ -193,6 +193,7 @@ router.post("/assignments/:id/submission",async(req,res,next)=>{
     }
     
     const assignmentSubmission = await apiService.submitAssignment(submissionObj,assignment);
+    
     console.log(assignmentSubmission);
     
 
@@ -207,11 +208,13 @@ router.post("/assignments/:id/submission",async(req,res,next)=>{
     
     if (retriesLeft < 0) {
        res.status(403).send();
+       logger.error("Forbidden from submitting assignment due to max attempts reached");
        return;
     }
     res.status(201);
     res.json(assignmentSubmission);
     console.log(assignmentSubmission);
+    logger.info("Assignment submitted");
       // User info to be posted to the SNS topic
 const userInfo = {
   domainName: "demo.shreyabaliga.me",
@@ -274,6 +277,7 @@ sns.publish({
   catch(error)
   {
       res.status(400).send();
+      logger.error("Assignment could not be submitted");
   }
 //   // User info to be posted to the SNS topic
 // const userInfo = {
