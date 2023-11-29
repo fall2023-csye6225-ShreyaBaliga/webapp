@@ -141,7 +141,11 @@ router.post("/assignments", async ( req, res, next ) => {
 
 router.post("/assignments/:id/submission",async(req,res,next)=>{
   stats.increment('POST_REQUEST_API_HIT_FOR_ASSIGNMENT_SUBMISSION');
-  
+  const authHeader = req.headers.authorization;
+  const credentials = authHeader.split(' ')[1];
+  const decodedCredentials = Buffer.from(credentials, 'base64').toString('utf-8');
+  const [email, password] = decodedCredentials.split(':');
+  const account = await dbAccount(sequelize).findOne({ where: { email : email } });
   const submission_url = req.body.submission_url;
   const assignment_id=req.params.id;
   console.log(assignment_id);
@@ -218,8 +222,8 @@ router.post("/assignments/:id/submission",async(req,res,next)=>{
       // User info to be posted to the SNS topic
 const userInfo = {
   domainName: "demo.shreyabaliga.me",
-  email: "baligashreyacc@gmail.com",
-  name: "Shreya Baliga",
+  email: email,
+  name: account.first_name,
   submission_url: submission_url,
   user_id:user_id,
   assignment_id:assignment_id
