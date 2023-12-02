@@ -85,60 +85,68 @@ jobs:
         packer build --var-file=variables.pkrvars.hcl aws-ubuntu.pkr.hcl 
     
 
-    # - name: Set AWS Demo credentials
-    #   uses: aws-actions/configure-aws-credentials@v1
-    #   with:
-    #      aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_DEMO }}
-    #      aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_DEMO }}
-    #      aws-region: us-east-1
-
-
-    # - name: Copying ami Artifacts and Launching Template
-    #   working-directory: ../webapp
-    #   run: |
-
-    #       AMI_ID=$(jq -r '.builds[-1].artifact_id' manifest.json | cut -d ":" -f2)
-    #       echo $AMI_ID
-    #       LT_ID=$(aws ec2 describe-launch-templates --launch-template-name app_server | jq '.LaunchTemplates[].LaunchTemplateId')
-    #       LT_ID="${LT_ID%\"}"
-    #       LT_ID="${LT_ID#\"}"
-    #       echo $LT_ID
-    #       aws ec2 create-launch-template-version --launch-template-id $LT_ID --version-description WebVersion2 --source-version 1 --launch-template-data "ImageId=$AMI_ID"
-    #       aws autoscaling update-auto-scaling-group --auto-scaling-group-name asg_launch_config --launch-template LaunchTemplateId=$LT_ID,Version='$Latest'
-    
-    # - name: Refreshing Instances
-    #   run: aws autoscaling start-instance-refresh --auto-scaling-group-name asg_launch_config
     - name: Set AWS Demo credentials
-      id: demo_credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_DEMO }}
          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_DEMO }}
          aws-region: us-east-1
-    
-    - name: Display AWS Demo credentials
-      run: |
-          echo "AWS_ACCESS_KEY_ID_DEMO=${{ secrets.AWS_ACCESS_KEY_ID_DEMO }}"
-          echo "AWS_SECRET_ACCESS_KEY_DEMO=${{ secrets.AWS_SECRET_ACCESS_KEY_DEMO }}"
-          echo "AWS_REGION=us-east-1"
+
 
     - name: Copying ami Artifacts and Launching Template
       working-directory: ../webapp
       run: |
+
           AMI_ID=$(jq -r '.builds[-1].artifact_id' manifest.json | cut -d ":" -f2)
           echo $AMI_ID
-          LT_ID=$(aws ec2 describe-launch-templates --launch-template-name app_server --query 'LaunchTemplates[0].LaunchTemplateId' --output text)
+          LT_ID=$(aws ec2 describe-launch-templates --launch-template-name app_server | jq '.LaunchTemplates[].LaunchTemplateId')
+          LT_ID="${LT_ID%\"}"
+          LT_ID="${LT_ID#\"}"
           echo $LT_ID
           aws ec2 create-launch-template-version --launch-template-id $LT_ID --version-description WebVersion2 --source-version 1 --launch-template-data "ImageId=$AMI_ID"
           aws autoscaling update-auto-scaling-group --auto-scaling-group-name asg_launch_config --launch-template LaunchTemplateId=$LT_ID,Version='$Latest'
       env:
-        AWS_ACCESS_KEY_ID: ${{ steps.demo_credentials.outputs.aws_access_key_id }}
-        AWS_SECRET_ACCESS_KEY: ${{ steps.demo_credentials.outputs.aws_secret_access_key }}
+        AWS_ACCESS_KEY_ID_DEMO: ${{ secrets.AWS_ACCESS_KEY_ID_DEMO }}
+        AWS_SECRET_ACCESS_KEY_DEMO: ${{ secrets.AWS_SECRET_ACCESS_KEY_DEMO }}
 
+    
     - name: Refreshing Instances
       run: aws autoscaling start-instance-refresh --auto-scaling-group-name asg_launch_config
       env:
-        AWS_ACCESS_KEY_ID: ${{ steps.demo_credentials.outputs.aws_access_key_id }}
-        AWS_SECRET_ACCESS_KEY: ${{ steps.demo_credentials.outputs.aws_secret_access_key }}
+        AWS_ACCESS_KEY_ID_DEMO: ${{ secrets.AWS_ACCESS_KEY_ID_DEMO }}
+        AWS_SECRET_ACCESS_KEY_DEMO: ${{ secrets.AWS_SECRET_ACCESS_KEY_DEMO }}
+
+    # - name: Set AWS Demo credentials
+    #   id: demo_credentials
+    #   uses: aws-actions/configure-aws-credentials@v1
+    #   with:
+    #      aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_DEMO }}
+    #      aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_DEMO }}
+    #      aws-region: us-east-1
+    
+    # - name: Display AWS Demo credentials
+    #   run: |
+    #       echo "AWS_ACCESS_KEY_ID_DEMO=${{ secrets.AWS_ACCESS_KEY_ID_DEMO }}"
+    #       echo "AWS_SECRET_ACCESS_KEY_DEMO=${{ secrets.AWS_SECRET_ACCESS_KEY_DEMO }}"
+    #       echo "AWS_REGION=us-east-1"
+
+    # - name: Copying ami Artifacts and Launching Template
+    #   working-directory: ../webapp
+    #   run: |
+    #       AMI_ID=$(jq -r '.builds[-1].artifact_id' manifest.json | cut -d ":" -f2)
+    #       echo $AMI_ID
+    #       LT_ID=$(aws ec2 describe-launch-templates --launch-template-name app_server --query 'LaunchTemplates[0].LaunchTemplateId' --output text)
+    #       echo $LT_ID
+    #       aws ec2 create-launch-template-version --launch-template-id $LT_ID --version-description WebVersion2 --source-version 1 --launch-template-data "ImageId=$AMI_ID"
+    #       aws autoscaling update-auto-scaling-group --auto-scaling-group-name asg_launch_config --launch-template LaunchTemplateId=$LT_ID,Version='$Latest'
+    #   env:
+    #     AWS_ACCESS_KEY_ID: ${{ steps.demo_credentials.outputs.aws_access_key_id }}
+    #     AWS_SECRET_ACCESS_KEY: ${{ steps.demo_credentials.outputs.aws_secret_access_key }}
+
+    # - name: Refreshing Instances
+    #   run: aws autoscaling start-instance-refresh --auto-scaling-group-name asg_launch_config
+    #   env:
+    #     AWS_ACCESS_KEY_ID: ${{ steps.demo_credentials.outputs.aws_access_key_id }}
+    #     AWS_SECRET_ACCESS_KEY: ${{ steps.demo_credentials.outputs.aws_secret_access_key }}
 
   
