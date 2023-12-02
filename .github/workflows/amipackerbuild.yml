@@ -115,6 +115,12 @@ jobs:
          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_DEMO }}
          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_DEMO }}
          aws-region: us-east-1
+    
+    - name: Display AWS Demo credentials
+      run: |
+          echo "AWS_ACCESS_KEY_ID_DEMO=${{ secrets.AWS_ACCESS_KEY_ID_DEMO }}"
+          echo "AWS_SECRET_ACCESS_KEY_DEMO=${{ secrets.AWS_SECRET_ACCESS_KEY_DEMO }}"
+          echo "AWS_REGION=us-east-1"
 
     - name: Copying ami Artifacts and Launching Template
       working-directory: ../webapp
