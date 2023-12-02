@@ -94,7 +94,7 @@ jobs:
 
 
     - name: Copying ami Artifacts and Launching Template
-      working-directory: ./webapp
+      working-directory: ../webapp
       run: |
 
           AMI_ID=$(jq -r '.builds[-1].artifact_id' manifest.json | cut -d ":" -f2)
