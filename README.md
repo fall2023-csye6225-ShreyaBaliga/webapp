@@ -44,5 +44,11 @@ GitHub Actions should set up  PostgreSQL instance and provide configuration to t
 # Implemented Cloudwatch
 # Setup MailGun
 # Implemented Alarms
-#abcd
+# Command to import ZeroSSL Certificate to AWS Certificate Management
+ $certificateBase64 = [Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes((Get-Content -Raw -Path 'path\to\certificate.crt')))
+ $privateKeyBase64 = [Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes((Get-Content -Raw -Path 'path\to\private.key')))
+ $ca_bundleBase64 = [Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes((Get-Content -Raw -Path 'path\to\ca_bundle.crt')))
+
+
+aws acm import-certificate --certificate "$certificateBase64" --private-key "$privateKeyBase64" --region us-east-1 --certificate-chain "$ca_bundleBase64" 
 
