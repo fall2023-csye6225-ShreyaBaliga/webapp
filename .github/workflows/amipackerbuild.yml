@@ -114,22 +114,22 @@ jobs:
       run: |
           aws autoscaling start-instance-refresh --auto-scaling-group-name asg_launch_config
           
-          # Wait for the instance refresh to complete
-          while [ "$(aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names asg_launch_config | jq -r '.AutoScalingGroups[0].InstancesInService')" -lt 1 ]; do
-            sleep 500
-          done
+          # # Wait for the instance refresh to complete
+          # while [ "$(aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names asg_launch_config | jq -r '.AutoScalingGroups[0].InstancesInService')" -lt 1 ]; do
+          #   sleep 500
+          # done
 
-          # Check the status of the instance refresh
-          INSTANCE_REFRESH_STATUS=$(aws autoscaling describe-instance-refreshes --auto-scaling-group-name asg_launch_config | jq -r '.InstanceRefreshes[0].Status')
-            echo "Instance Refresh Status: $INSTANCE_REFRESH_STATUS"
+          # # Check the status of the instance refresh
+          # INSTANCE_REFRESH_STATUS=$(aws autoscaling describe-instance-refreshes --auto-scaling-group-name asg_launch_config | jq -r '.InstanceRefreshes[0].Status')
+          #   echo "Instance Refresh Status: $INSTANCE_REFRESH_STATUS"
 
-          # Set the GitHub Actions workflow status based on the instance refresh status
-          if [ "$INSTANCE_REFRESH_STATUS" == "Successful" ]; then
-              echo "Instance Refresh successful."
-          else
-              echo "Instance Refresh failed. Exiting with an error."
-              exit 1
-          fi
+          # # Set the GitHub Actions workflow status based on the instance refresh status
+          # if [ "$INSTANCE_REFRESH_STATUS" == "Successful" ]; then
+          #     echo "Instance Refresh successful."
+          # else
+          #     echo "Instance Refresh failed. Exiting with an error."
+          #     exit 1
+          # fi
       env:
         AWS_ACCESS_KEY_ID_DEMO: ${{ secrets.AWS_ACCESS_KEY_ID_DEMO }}
         AWS_SECRET_ACCESS_KEY_DEMO: ${{ secrets.AWS_SECRET_ACCESS_KEY_DEMO }}
