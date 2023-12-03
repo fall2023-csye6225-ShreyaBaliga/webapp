@@ -111,25 +111,47 @@ jobs:
 
     
     - name: Refreshing Instances
+      run: aws autoscaling start-instance-refresh --auto-scaling-group-name asg_launch_config
+      env:
+        AWS_ACCESS_KEY_ID_DEMO: ${{ secrets.AWS_ACCESS_KEY_ID_DEMO }}
+        AWS_SECRET_ACCESS_KEY_DEMO: ${{ secrets.AWS_SECRET_ACCESS_KEY_DEMO }}
+
+    - name: Wait for Instance Refresh to complete
       run: |
-          aws autoscaling start-instance-refresh --auto-scaling-group-name asg_launch_config
-          
-          # # Wait for the instance refresh to complete
-          # while [ "$(aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names asg_launch_config | jq -r '.AutoScalingGroups[0].InstancesInService')" -lt 1 ]; do
-          #   sleep 500
-          # done
+          TIMEOUT=900 
+          START_TIME=$(date +%s)
 
-          # # Check the status of the instance refresh
-          # INSTANCE_REFRESH_STATUS=$(aws autoscaling describe-instance-refreshes --auto-scaling-group-name asg_launch_config | jq -r '.InstanceRefreshes[0].Status')
-          #   echo "Instance Refresh Status: $INSTANCE_REFRESH_STATUS"
+          while true; do
+            CURRENT_TIME=$(date +%s)
+            ELAPSED_TIME=$((CURRENT_TIME - START_TIME))
 
-          # # Set the GitHub Actions workflow status based on the instance refresh status
-          # if [ "$INSTANCE_REFRESH_STATUS" == "Successful" ]; then
-          #     echo "Instance Refresh successful."
-          # else
-          #     echo "Instance Refresh failed. Exiting with an error."
-          #     exit 1
-          # fi
+            # Check if the timeout has been reached
+            if [ "$ELAPSED_TIME" -ge "$TIMEOUT" ]; then
+                echo "Instance Refresh timed out. Exiting with an error."
+                exit 1
+            fi
+
+            # Check the status of the instance refresh
+            INSTANCE_REFRESH_STATUS=$(aws autoscaling describe-instance-refreshes --auto-scaling-group-name asg_launch_config | jq -r '.InstanceRefreshes[0].Status')
+              echo "Instance Refresh Status: $INSTANCE_REFRESH_STATUS"
+
+            # Break out of the loop if the instance refresh is completed (either Successful or Failed)
+            if [ "$INSTANCE_REFRESH_STATUS" == "Successful" ] || [ "$INSTANCE_REFRESH_STATUS" == "Failed" ]; then
+              break
+            fi
+
+            sleep 30
+          done
+
+          # Set the GitHub Actions workflow status based on the instance refresh status
+          if [ "$INSTANCE_REFRESH_STATUS" == "Successful" ]; then
+            echo "Instance Refresh successful."
+            exit 0  # Exit with success status
+          else
+            echo "Instance Refresh failed. Exiting with an error."
+            exit 1  # Exit with error status
+          fi
+      shell: bash
       env:
         AWS_ACCESS_KEY_ID_DEMO: ${{ secrets.AWS_ACCESS_KEY_ID_DEMO }}
         AWS_SECRET_ACCESS_KEY_DEMO: ${{ secrets.AWS_SECRET_ACCESS_KEY_DEMO }}
