@@ -43,7 +43,7 @@ app.use('/healthz',require('./src/healthapi'));
     
 // })
 
-app.use('/v2', require('./src/api'));
+app.use('/v1', require('./src/api'));
 
 
 
